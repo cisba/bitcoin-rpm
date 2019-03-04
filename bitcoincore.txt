@@ -1,2 +1,0 @@
-curl -O https://raw.githubusercontent.com/bitcoin-core/packaging/master/rpm/bitcoin.spec
-rpmbuild --undefine=_disable_source_fetch -ba bitcoin.spec
