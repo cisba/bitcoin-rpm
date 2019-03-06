@@ -1,1 +1,1 @@
-# TBD: translate from the [italian README.md](LEGGIMI.MD)
+# TBD: translate from the [italian README](LEGGIMI.md)
