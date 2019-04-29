@@ -5,7 +5,6 @@ sudo yum install -y rpmdevtools rpmlint selinux-policy-devel
 [ ! -f ~/.rpmmacros ] && rpmdev-setuptree
 TOPDIR=$(rpm --eval "%{_topdir}")
 [ ! -d ${TOPDIR} ] && rpmdev-setuptree
-read
 
 # prepare files in the right place
 cp -p src/* ${TOPDIR}/SOURCES

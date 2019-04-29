@@ -308,6 +308,9 @@ done
 /sbin/fixfiles -R bitcoin-server restore &> /dev/null || :
 /sbin/restorecon -R %{_localstatedir}/lib/bitcoin || :
 
+# useful links for client access to config
+ln -s /var/lib/bitcoin /var/lib/bitcoin/.bitcoin
+ln -s /etc/bitcoin/bitcoin.conf /var/lib/bitcoin/bitcoin.conf
 
 %posttrans server
 /usr/bin/systemd-tmpfiles --create
@@ -336,6 +339,8 @@ if [ $1 -eq 0 ] ; then
 		&> /dev/null || :
 fi
 
+rm -f /var/lib/bitcoin/.bitcoin
+rm -f /var/lib/bitcoin/bitcoin.conf
 
 %files core
 %defattr(-,root,root,-)
