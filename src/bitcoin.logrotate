@@ -1,0 +1,12 @@
+/var/lib/bitcoin/debug.log 
+/var/lib/bitcoin/testnet3/debug.log 
+/var/lib/bitcoin/regtest/debug.log 
+{
+	rotate 12
+	monthly
+	copytruncate
+	compress
+	missingok
+	notifempty
+	su root root
+}
