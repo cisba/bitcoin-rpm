@@ -1,4 +1,4 @@
-* [FIXME] remove links only on uninstall not during upgrade
+* logrotate
 * translate LEGGIMI to english README
 * add signatures folder
 * license

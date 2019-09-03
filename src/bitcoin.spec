@@ -309,8 +309,8 @@ done
 /sbin/restorecon -R %{_localstatedir}/lib/bitcoin || :
 
 # useful links for client access to config
-ln -s /var/lib/bitcoin /var/lib/bitcoin/.bitcoin
-ln -s /etc/bitcoin/bitcoin.conf /var/lib/bitcoin/bitcoin.conf
+[ -e /var/lib/bitcoin/.bitcoin ] || ln -s /var/lib/bitcoin /var/lib/bitcoin/.bitcoin
+[ -e /var/lib/bitcoin/bitcoin.conf ] || ln -s /etc/bitcoin/bitcoin.conf /var/lib/bitcoin/bitcoin.conf
 
 %posttrans server
 /usr/bin/systemd-tmpfiles --create
@@ -337,10 +337,11 @@ if [ $1 -eq 0 ] ; then
 	[ -d %{_localstatedir}/lib/bitcoin ] && \
 		/sbin/restorecon -R %{_localstatedir}/lib/bitcoin \
 		&> /dev/null || :
-fi
 
-rm -f /var/lib/bitcoin/.bitcoin
-rm -f /var/lib/bitcoin/bitcoin.conf
+	# remove links for client access to config
+	[ -h /var/lib/bitcoin/.bitcoin ] && rm -f /var/lib/bitcoin/.bitcoin
+	[ -h /var/lib/bitcoin/bitcoin.conf ] && rm -f /var/lib/bitcoin/bitcoin.conf
+fi
 
 %files core
 %defattr(-,root,root,-)
@@ -396,6 +397,9 @@ rm -f /var/lib/bitcoin/bitcoin.conf
 
 
 %changelog
+* Tue Sep  3 2019 Emanuele Cisbani <emanuele.cisbani@gmail.com> 0.17.1-3
+- Remove links only when uninstall
+
 * Mon Mar  4 2019 Emanuele Cisbani <emanuele.cisbani@gmail.com> 0.17.1-2
 - Build phase removed to use bitcoincore.org signed binaries
 
